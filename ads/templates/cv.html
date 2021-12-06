@@ -1,0 +1,49 @@
+{% extends 'sample.html' %}
+
+{%block title%}{{u_id.name}}{% endblock %} 
+
+{%block body%} 
+<body>    
+    <main class="page cv-page">
+        <section class="portfolio-block block-intro border-bottom">
+            <div class="container">
+                <img src="/static/loaded/{{u_id.filename}}" class="img-thumbnail" alt="Cinque Terre" width="19*30" height="26*30">                
+                <div class="about-me">
+                    <h1><strong>{{u_id.name}}</strong>.</h1>
+                    <p>{{u_id.description}}.</p>
+                    <a class="btn btn-outline-primary" role="button" href="#">Бесполезная кнопка</a></div>
+            </div>
+        </section>
+        <section class="portfolio-block cv">          
+                
+                <div class="group">
+                    <div class="row">                        
+                        <div class="col-md-6">
+                            <div class="contact-info portfolio-info-card">
+                                <h2>Информация об заявители</h2>
+                                <div class="row">
+                                    <div class="col-1"><i class="icon ion-android-calendar icon"></i></div>
+                                    <div class="col-9"><span>Дата публикации:{{u_id.date}} </span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"><i class="icon ion-person icon"></i></div>
+                                    <div class="col-9"><span>Имя пользователя</span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"><i class="icon ion-ios-telephone icon"></i></div>
+                                    <div class="col-9"><span>Его мобильный</span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"><i class="icon ion-at icon"></i></div>
+                                    <div class="col-9"><span>Емайл?</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </section>
+    </main>    
+</body>
+{% endblock %} 
+</html>
