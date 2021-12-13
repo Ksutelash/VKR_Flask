@@ -8,6 +8,11 @@
 
    {%block head%}    
    <meta charset="utf-8">
+
+
+   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">       
    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">    
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
@@ -22,9 +27,16 @@
        <div class="collapse navbar-collapse"
            id="navbarNav">
            <ul class="nav navbar-nav ml-auto">
+
+               {%if current_user.is_authenticated:%}
                <li class="nav-item" role="presentation"><a class="nav-link active" href="{{ url_for('ads.all')}}">Обьявления</a></li>
-               <li class="nav-item" role="presentation"><a class="nav-link" href="{{ url_for('ads.add')}}">Добавить объявление</a></li>                    
-               <li class="nav-item" role="presentation"><a class="nav-link" href="profile">Личный кабинет</a></li>
+               <li class="nav-item" role="presentation"><a class="nav-link" href="{{ url_for('ads.add')}}">Добавить объявление</a></li>
+                {%endif%}
+                               
+               <li class="nav-item" role="presentation"><a class="nav-link" href="/login">Личный кабинет</a></li>
+               {%if current_user.is_authenticated and current_user.login == "Ksut": %}
+               <li class="nav-item" role="presentation"><a class="nav-link" href="/admin">Админка</a></li>
+               {%endif%}   
            </ul>
        </div>
    </div>
@@ -35,13 +47,14 @@
 
 
 <body>
+    
     {%block body%}  
     <main class="page lanidng-page">
         <section class="portfolio-block block-intro">
             <div class="container">
                 <div class="avatar" style="background-image:url(&quot;{{ url_for('static', filename='css/img/avatars/avatar.jpg')}}&quot;);"></div>
                 <div class="about-me">
-                    <p>Hello! I am <strong>John Smith</strong>. I work as interface and front end developer. I have passion for pixel perfect, minimal and easy to use interfaces.</p><a class="btn btn-outline-primary" role="button" href="#">Hire me</a></div>
+                    <p>Привет!<strong>Студенческое авито</strong>. Данная страница в разработке.</p><a class="btn btn-outline-primary" role="button" href="#">Кнопка на что-то</a></div>
             </div>
         </section>
         <section class="portfolio-block photography">
@@ -56,13 +69,13 @@
         <section class="portfolio-block call-to-action border-bottom">
             <div class="container">
                 <div class="d-flex justify-content-center align-items-center content">
-                    <h3>Like what you see?</h3><button class="btn btn-outline-primary btn-lg" type="button">Hire me</button></div>
+                    <h3>Что-то?</h3><button class="btn btn-outline-primary btn-lg" type="button">На что-то</button></div>
             </div>
         </section>
         <section class="portfolio-block skills">
             <div class="container">
                 <div class="heading">
-                    <h2>Special Skills</h2>
+                    <h2>Another раздел</h2>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
@@ -114,7 +127,7 @@
             </div>
         </div>
     </section>
-    {% endblock %}
+    {%endblock%}
 
     {%block footer%}
     <footer class="page-footer">

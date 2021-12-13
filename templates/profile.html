@@ -1,5 +1,52 @@
 {% extends 'sample.html' %}
 
-{%block title%}Личный кабинет{% endblock %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  <ul class=flashes>
+  {% for message in messages %}
+    <li>{{ message }}</li>
+  {% endfor %}
+  </ul>
+{% endif %}
+{% endwith %}
 
-{%block Mainbody%} {% endblock %}
+{%block title%}Мой профиль{% endblock %}
+
+<body>
+{%block body%}
+<div id="profile">
+    <h3 class="text-center text-white pt-5">Login form</h3>
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <form id="login-form" class="form" action="" method="post">
+                        <h3 class="text-center text-info">Мой профиль</h3>
+  
+                        {%for message in get_flashed_messages()%}
+                        <h3 class="text-center text-info">{{message}}</h3>
+                        {%endfor%}
+  
+                        <div class="form-group">
+                            <label for="username" class="text-info">Логин:</label><br>
+                            <h5>Мой ник: {{current_user.login}}, а мой ID: {{current_user.id}}</h5>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="text-info">Пароль:</label><br>
+                            <input type="password" name="password" id="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="remember-me" class="text-info"><span>Запомнить меня</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
+                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Войти">
+                        </div>
+                        <div id="register-link" class="text-right">
+                            <a href="{{url_for('logout')}}" class="text-info">Выйти с профиля</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}
+</body>
