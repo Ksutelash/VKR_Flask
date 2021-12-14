@@ -15,6 +15,7 @@ class Post(db.Model):
     description = db.Column(db.Text(300), nullable = False)    
     price = db.Column(db.Text, nullable = False)    
     filename = db.Column(db.Text, unique = False, nullable = False)
+    univ_name = db.Column(db.String(200), nullable = False)
     date = db.Column(db.DateTime, default = datetime.utcnow)  
 
     post_creator = db.Column(db.String(100))
@@ -28,4 +29,9 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key = True)
     login = db.Column(db.String(100), unique = True)   
     password = db.Column(db.String(100), nullable = False)
+    univ_name = db.Column(db.String(200), nullable = False)
 
+class Univ(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(200), nullable = False)
+    

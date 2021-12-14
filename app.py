@@ -23,7 +23,7 @@ login_manager = LoginManager(app)
 
 
 
-from models import Post, User
+from models import Post, User, Univ
 
 from ads.ads import ads
 app.register_blueprint(ads, url_prefix='/ads')
@@ -51,6 +51,7 @@ class MyModelView(ModelView):
 admin = Admin(app, name='Админка', template_mode='bootstrap3')
 admin.add_view(MyModelView(Post, db.session))
 admin.add_view(MyModelView(User, db.session))
+admin.add_view(MyModelView(Univ, db.session))
 # Admin Panel #
 
 
@@ -111,7 +112,8 @@ def logout():
 
 
 @app.route("/register", methods=['GET', 'POST'])
-def register():    
+def register(): 
+    el = Univ.query.all()   
     login = request.form.get('login')
     password = request.form.get('password')
     password2 = request.form.get('password2')       
@@ -122,13 +124,14 @@ def register():
             flash("Пароли не совпадают")
         else:
             hash_password = generate_password_hash(password)
-            new_user = User(login=login, password = hash_password)
+            univ_name = request.form.get('tip')
+            new_user = User(login=login, password = hash_password, univ_name = univ_name)
             db.session.add(new_user)
             db.session.commit()
             flash("А теперь войдите в свой профиль")
-            return render_template('login.html')
+            return render_template('index.html')
             
-    return render_template('register.html')
+    return render_template('register.html',el=el)
 
 #Перенаправление на логин, со страниц, где нужна авторизация для показа контента
 @app.after_request

@@ -1,7 +1,6 @@
 import os
 from flask import Blueprint, render_template, request, redirect, session, flash
 from werkzeug.utils import secure_filename
-from sqlalchemy import exc
 import random, string #File random gen name
 from models import Post
 ads = Blueprint('ads', __name__, template_folder='templates', static_folder='static') # имя принта, имя модуля(где будут искаться каталоги и под, пути)
@@ -41,6 +40,7 @@ def add():
         img_file = request.files['file']
         filename = secure_filename(img_file.filename)
         postcreator = current_user.login
+        univ_name = current_user.univ_name
         af = allowed_file(filename)
 
         if not tip:
@@ -66,7 +66,7 @@ def add():
             flash("Неверный формат файла, попробуйте еще раз")
             return redirect('/ads/add')
 
-        postDB = Post(tip = tip, name = name, description = description, price = price, filename = filename, post_creator = postcreator)     
+        postDB = Post(tip = tip, name = name, description = description, price = price, filename = filename, post_creator = postcreator, univ_name = univ_name)     
         
             
         
@@ -93,11 +93,21 @@ def add():
 @ads.route('all', methods=["POST","GET"])
 @login_required
 def all():
-    u = Post.query.all()
-    return render_template("all.html", u=u)
+    u = Post.query.filter_by(univ_name = current_user.univ_name) 
+
+    #Пагинация    
+    page = request.args.get('page')
+    if page and page.isdigit():
+        page = int(page)
+    else:
+        page = 1    
+    pages = u.paginate(page=page, per_page = 3)    
+    return render_template("all.html", u = u, u_name = current_user.univ_name,pages=pages)
 
 @ads.route('all/<int:id>', methods=["POST","GET"])
 @login_required
 def all_detail(id):
+
     u_id = Post.query.get(id)
+    #u_id = Post.query.filter_by(univ_name = current_user.univ_name)    
     return render_template("cv.html", u_id=u_id)

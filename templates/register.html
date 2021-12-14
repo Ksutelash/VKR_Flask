@@ -39,6 +39,16 @@
                         <label for="password" class="text-info">Потвердите пароль:</label><br>
                         <input type="password" name="password2" id="password2_1" class="form-control">
                         </div>
+                        <div class="form-group">
+                            <label for="subject">Ваш университет/Общежитие</label>
+                            <select class="form-control" name="tip" id="tip">
+                                {% for el in el %} 
+                                    <option value="{{el.name}}">{{el.name}}</option>
+                                {%endfor%}
+                                <option value="Не указан">Не указан</option>
+                            </select>
+                        </div>
+
                       <div class="form-group">
                           <label for="remember-me" class="text-info"><span>Запомнить меня</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
                           <input type="submit" name="submit" value="Зарегестрировать" class="btn btn-info btn-md" value="submit">

@@ -29,18 +29,17 @@
   
                         <div class="form-group">
                             <label for="username" class="text-info">Логин:</label><br>
-                            <h5>Мой ник: {{current_user.login}}, а мой ID: {{current_user.id}}</h5>
+                            <h5>Мой ник: {{current_user.login}}</h5>
+                            <h5>Моё id: {{current_user.id}}</h5>
+                            <h5>Мой выбранный вуз: {{current_user.univ_name}}</h5>
+                            
+                        </div>                        
                         </div>
-                        <div class="form-group">
-                            <label for="password" class="text-info">Пароль:</label><br>
-                            <input type="password" name="password" id="password" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="remember-me" class="text-info"><span>Запомнить меня</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Войти">
+                        <div class="form-group">                            
+                            <a class="btn btn-outline-primary" role="button"  href="{{url_for('logout')}}">Выход из профиля</a></div>
                         </div>
                         <div id="register-link" class="text-right">
-                            <a href="{{url_for('logout')}}" class="text-info">Выйти с профиля</a>
+                            
                         </div>
                     </form>
                 </div>
