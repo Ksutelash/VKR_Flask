@@ -1,0 +1,71 @@
+{% extends 'sample.html' %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  <ul class=flashes>
+  {% for message in messages %}
+    <li>{{ message }}</li>
+  {% endfor %}
+  </ul>
+{% endif %}
+{% endwith %}
+
+{%block title%}Мой профиль{% endblock %}
+
+<body>
+{%block body%}
+<div id="profile">
+        <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">                    
+                        <h3 class="text-center text-info">Мой профиль</h3>
+  
+                        {%for message in get_flashed_messages()%}
+                        <h3 class="text-center text-info">{{message}}</h3>
+                        {%endfor%}
+  
+                        <div class="form-group">
+                            <h5>Мой аватар: <img class="card-img-top scale-on-hover" alt="Аватарка не прогрузилась :С"   src="/static/loaded/{{current_user.user_avatar}}"></h5>                            
+                            <h5>Мой ник: {{current_user.login}}</h5>
+                            <h5>Мой id: {{current_user.id}}</h5>
+                            <h5>Мой выбранный вуз: {{current_user.univ_name}}</h5>
+                            <h5>Моя роль: {{user_role_is}}</h5>
+                            <h4>Мои обьявления:</h4>
+                            <div class="row">
+                                {% for el in posts %}
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="card border-0"><a href="/ads/all/{{el.post_id}}"><img class="card-img-top scale-on-hover" src="/static/loaded/{{el.post_filename}}"></a>
+                                            <div class="card-body">
+                                                <h6><a href="#">{{el.post_name}}</a></h6>                                
+                                                <p class="text-muted card-text">{{el.post_price}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {%endfor%}
+                                
+                        </div>                        
+                        </div>
+
+                        <form method="POST" enctype="multipart/form-data">    
+                        <div class="form-group"><div class="form-row"><h5>Загрузка новый аватарки:</h5>
+                            <p><input type="file" name="file"></p>
+                            <div class="col-md-6 button"><button class="btn btn-primary btn-block" type="submit">Подать</button></div>
+                        </div>  
+                        </form>                    
+                    
+                                
+                        <div class="form-group">                            
+                            <a class="btn btn-outline-primary" role="button"  href="/logout">Выход из профиля</a></div>
+                        </div>
+                        <div id="register-link" class="text-right">
+                            
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}
+</body>

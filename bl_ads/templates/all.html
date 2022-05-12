@@ -1,0 +1,70 @@
+{% extends 'sample.html' %}
+
+{%block title%}Все обьявления{% endblock %}  
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  <ul class=flashes>
+  {% for message in messages %}
+    <li>{{ message }}</li>
+  {% endfor %}
+  </ul>
+{% endif %}
+{% endwith %}
+      
+<head></head>
+
+{%block body%}
+<body>
+    <main class="page projects-page">
+        <section class="portfolio-block projects-cards">
+            <div class="container">
+
+                <div class="heading">
+                    <h2>Список обьявлений для вашего вуза: {{ u_name }}</h2>
+                    <div class="form-row">
+                        <div class="col-md-6 button"><a class="btn btn-primary btn-block" href="/ads/add" style="display: block; margin: 0 auto;">Подать</a></div>                    
+                    </div>  
+                    {%for message in get_flashed_messages()%}    
+                    <h1>{{message}}</h1>
+                    {%endfor%}                    
+                </div>
+
+                <div class="row">
+                {% for el in pages.items %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card border-0"><a href="all/{{el.post_id}}"><img class="card-img-top scale-on-hover" src="/static/loaded/{{el.post_filename}}"></a>
+                            <div class="card-body">
+                                <h6>{{el.post_name}}</h6>                                
+                                <p class="text-muted card-text">{{el.post_price}}</p>
+                            </div>
+                        </div>
+                    </div>
+                {%endfor%}                         
+            </div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    
+                    <li class="page-item"><a class="page-link" href="?page={%if not pages.has_prev %} {{page}} {%else:%}{{pages.prev_num}}{%endif%}">  <<  </a></li>
+                                                                           
+                        
+                    
+
+                    {%for page in pages.iter_pages()%}
+                        <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
+                    {%endfor%}
+
+                  <li class="page-item"><a class="page-link" href="?page={%if not pages.has_next %}{{pages.pages}}{%else:%}{{pages.next_num}}{%endif%}">  >>  </a></li>
+                </ul>
+              </nav>     
+        </div>
+           
+        </section>        
+        
+    </main>   
+
+
+</body>
+{% endblock %}    
+
+</html>

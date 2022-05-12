@@ -1,0 +1,53 @@
+{% extends 'sample.html' %}
+
+{%block title%}Мои диалоги{% endblock %}
+{%block header%}<link rel="stylesheet" href="{{ url_for('static', filename='css/message_inbox.css')}}"> {%endblock%}
+
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  <ul class=flashes>
+  {% for message in messages %}
+    <li>{{ message }}</li>
+  {% endfor %}
+  </ul>
+{% endif %}
+{% endwith %}
+
+
+
+
+<body>
+{%block body%}
+
+<h2>Мои диалоги</h2>
+    {%for x in get_info%}
+    <div class="projects-horizontal">
+      <div class="container">
+          <div class="intro">
+              
+          </div>
+          
+          <div class="row projects">
+              <div class="col-sm-6 item">
+                  <div class="row">
+                      <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="/static/loaded/{{current_user.user_avatar}}"></a></div>
+                      <div class="col">
+                          <h3 class="name">{{ x.user_from }}</h3>
+                          <h5 class="name">{{ x.mes_theme }}</h5>
+                          <p class="description">{{ x.mes_text }}</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  {%endfor%} 
+                
+              
+          
+      
+  
+
+{% endblock %}
+</body>

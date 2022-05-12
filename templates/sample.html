@@ -11,18 +11,15 @@
 
 
    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+   
    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">       
    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">    
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
    <link rel="stylesheet" href="{{ url_for('static', filename='css/tag_colors.css')}}">
-   
-   
-   
-    
    <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts/ionicons.min.css')}}">
+
    {% endblock %}
 
    {%block navbar%}
@@ -33,12 +30,12 @@
            <ul class="nav navbar-nav ml-auto">
 
                {%if current_user.is_authenticated:%}
-               <li class="nav-item" role="presentation"><a class="nav-link active" href="{{ url_for('ads.all')}}">Обьявления</a></li>
-               <li class="nav-item" role="presentation"><a class="nav-link" href="{{ url_for('ads.add')}}">Добавить объявление</a></li>
-                {%endif%}
+               <li class="nav-item" role="presentation"><a class="nav-link active" href="{{ url_for('ads.all')}}">Обьявления</a></li>               
+               <li class="nav-item" role="presentation"><a class="nav-link" href="{{ url_for('message.message_inbox')}}">Сообщения</a></li>
+               {%endif%}
                                
-               <li class="nav-item" role="presentation"><a class="nav-link" href="/login">Личный кабинет</a></li>
-               {%if current_user.is_authenticated and current_user.login == "Ksut": %}
+               <li class="nav-item" role="presentation"><a class="nav-link" href="/profile/user">Личный кабинет</a></li>
+               {%if current_user.is_authenticated and current_user.role_id == 1: %}
                <li class="nav-item" role="presentation"><a class="nav-link" href="/admin">Админка</a></li>
                {%endif%}   
            </ul>
@@ -64,6 +61,7 @@
         <section class="portfolio-block photography">
             <div class="container">
                 <div class="row no-gutters">
+                    
                     <div class="col-md-6 col-lg-4 item zoom-on-hover"><a href="#"><img class="img-fluid image" src="{{ url_for('static', filename='css/img/nature/image5.jpg')}}"></a></div>
                     <div class="col-md-6 col-lg-4 item zoom-on-hover"><a href="#"><img class="img-fluid image" src="{{ url_for('static', filename='css/img/nature/image2.jpg')}}"></a></div>
                     <div class="col-md-6 col-lg-4 item zoom-on-hover"><a href="#"><img class="img-fluid image" src="{{ url_for('static', filename='css/img/tech/image4.jpg')}}"></a></div>

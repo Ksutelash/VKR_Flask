@@ -1,43 +1,43 @@
-import os, time
-from enum import unique
+import os
 from flask import Flask, render_template, url_for, request, redirect, flash
-from flask_login.mixins import UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 from werkzeug.utils import redirect
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from werkzeug.utils import secure_filename
+import random, string #File random gen name
 
 
+UPLOAD_FOLDER = 'C:/Users/Ksutelash/Desktop/pyProject/static/loaded' # Папка хранения изображений
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'} # Допустимые форматы изображений
 app = Flask(__name__)
-db = SQLAlchemy(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydb.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///mydb.db"
 app.config['SECRET_KEY'] = 'the random string' 
 app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.secret_key = 'testString'
 
+db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 
+# Blueprints #
+from bl_ads.ads import app_ads
+app.register_blueprint(app_ads, url_prefix = '/ads')
 
+from bl_profile.profile import app_profile
+app.register_blueprint(app_profile, url_prefix = '/profile')
 
-from models import Post, User, Univ
+from bl_message.message import app_message
+app.register_blueprint(app_message, url_prefix = '/message')
 
-from ads.ads import ads
-app.register_blueprint(ads, url_prefix='/ads')
-
-
+from models import Post, Role, User, Univ
 
 @login_manager.user_loader
-def load_user(user_id):
-    return User.get(user_id)
-
-
-    
-
-
+def load_user(id):
+    return User.query.get(id)
 
 # Admin Panel #
 class MyModelView(ModelView):
@@ -49,106 +49,30 @@ class MyModelView(ModelView):
     
 
 admin = Admin(app, name='Админка', template_mode='bootstrap3')
+
+# Плашки #
 admin.add_view(MyModelView(Post, db.session))
 admin.add_view(MyModelView(User, db.session))
 admin.add_view(MyModelView(Univ, db.session))
-# Admin Panel #
+admin.add_view(MyModelView(Role, db.session))
+#################################################
 
+#################################################
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+def get_random_string(filename):     
+    letters = string.ascii_lowercase
+    ext = filename.rsplit('.',1)[1]
+    filename = ''.join(random.choice(letters) for i in range(10)) # Генит 10 рандомных букофк в название
+    filename = filename + '.' + ext 
+    return filename
 
 @app.route("/")
 @app.route("/index")
 def index():    
     return render_template("index.html")
-
-
-@app.route('/profile/')
-@login_required
-def profile():      
-    return render_template("profile.html")
-
-#Обработчик, если пользователь незалогинен
-@login_manager.unauthorized_handler     
-def unauthorized_callback():            
-       return redirect(url_for('login'))
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)
-
-
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-
-    if current_user.is_authenticated:
-	    return redirect(url_for('profile'))
-        
-    if request.method == 'POST':   
-        login = request.form.get('login')
-        password = request.form.get('password')
-
-        if login and password:
-            user = User.query.filter_by(login=login).first()
-
-            if user and check_password_hash(user.password, password):
-                is_checked = request.form.get('remember-me')
-                if is_checked:
-                    login_user(user,remember=True)
-                else:
-                    login_user(user)
-                #next_page = request.args.get('next')
-                return render_template ('profile.html')
-            else:
-                flash('Wrong l/p')
-        else:
-            flash("Введите логин и пароль")
-    return render_template('login.html')
-
-
-@app.route("/logout", methods=['GET', 'POST'])
-@login_required
-def logout():    
-    logout_user()
-    return render_template('index.html')
-
-
-@app.route("/register", methods=['GET', 'POST'])
-def register(): 
-    el = Univ.query.all()   
-    login = request.form.get('login')
-    password = request.form.get('password')
-    password2 = request.form.get('password2')       
-    if request.method == 'POST':
-        if not (login or password):
-            flash("Введите все поля ввода")
-        elif password != password2:
-            flash("Пароли не совпадают")
-        else:
-            hash_password = generate_password_hash(password)
-            univ_name = request.form.get('tip')
-            new_user = User(login=login, password = hash_password, univ_name = univ_name)
-            db.session.add(new_user)
-            db.session.commit()
-            flash("А теперь войдите в свой профиль")
-            return render_template('index.html')
-            
-    return render_template('register.html',el=el)
-
-#Перенаправление на логин, со страниц, где нужна авторизация для показа контента
-@app.after_request
-def redirect_to_login(response):
-    if response.status_code == 401:
-        return redirect()
-
-    return response
-
-
-
-    
-
- 
-    
-    
-
 
 if __name__ == "__main__":
     app.run(debug = True)

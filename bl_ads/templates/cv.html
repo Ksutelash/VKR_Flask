@@ -1,0 +1,59 @@
+{% extends 'sample.html' %}
+
+{%block title%}{{u_id.name}}{% endblock %} 
+
+{%block body%} 
+<body>    
+    <main class="page cv-page">
+        <section class="portfolio-block block-intro border-bottom">
+            <div class="container">
+                <img src="/static/loaded/{{u_id.post_filename}}" class="img-thumbnail" alt="Cinque Terre" width="19*30" height="26*30">                
+                <div class="about-me">
+                    <h1><strong>{{u_id.post_name}}</strong>.</h1>
+                    <p>{{u_id.description}}.</p>
+                    {%if user_name == u_id.post_creator_name  %}
+                    <form method='POST'>                        
+                        <input type="submit" class="btn btn-outline-primary" role="button"  value="Удалить" name = "delete_add" href=""></a>
+                        </div>
+                    </form>
+                    {%endif%}
+                    {%if user_name != u_id.post_creator_name  %}
+                    <form method='POST'>                     
+                        <input type="submit" class="btn btn-outline-primary" role="button"  value="Написать пользователю" name = "send_messange" href=""></a></div>
+                    </form>
+                    {%endif%}
+            </div>
+        </section>
+        <section class="portfolio-block cv">          
+                
+                <div class="group">
+                    <div class="row">                        
+                        <div class="col-md-6">
+                            <div class="contact-info portfolio-info-card">
+                                <h2>Информация об заявители</h2>
+                                <div class="row">
+                                    <div class="col-1"><i class="icon ion-android-calendar icon"></i></div>
+                                    <div class="col-9";><span >Дата публикации:{{u_id.post_date}}</span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"><i class="icon ion-person icon"></i></div>
+                                    <div class="col-9"><span class="color1">Кто опубликовал: <h5 style="color:red";>{{u_id.post_creator_name}}</h5></span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"><i class="icon ion-ios-telephone icon"></i></div>
+                                    <div class="col-9"><span>Принадлежность(ВУЗ): <h5 style="color:red";>{{current_user.role_id}}</h5></span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-1"><i class="icon ion-at icon"></i></div>
+                                    <div class="col-9"><span>Емайл?</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </section>
+    </main>    
+</body>
+{% endblock %} 
+</html>
