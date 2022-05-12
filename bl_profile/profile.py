@@ -2,15 +2,14 @@ import os
 from flask import Blueprint, render_template, request, redirect, flash, url_for
 from werkzeug.utils import secure_filename
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-#from configs_profile import *
-UPLOAD_FOLDER = 'C:/Users/Ksutelash/Desktop/pyProject/static/loaded' # Папка хранения изображений
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'} # Допустимые форматы изображений
-from models import Post, Role, User, Univ, Message, db
+from models import Post, Role, User, Univ, db
 from werkzeug.security import check_password_hash, generate_password_hash
 app_profile = Blueprint('profile', __name__, template_folder='templates', static_folder='static') # имя принта, имя модуля(где будут искаться каталоги и под, пути)
 
 login_manager = LoginManager(app_profile)
 
+UPLOAD_FOLDER = 'C:/Users/Ksutelash/Desktop/pyProject/static/loaded' # Папка хранения изображений
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'} # Допустимые форматы изображений
 
 @app_profile.route('/user/', methods=['GET', 'POST'])
 @login_required

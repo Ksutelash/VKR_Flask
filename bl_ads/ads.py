@@ -1,13 +1,26 @@
 import os
 from flask import Blueprint, render_template, request, redirect, flash
 from werkzeug.utils import secure_filename
-import random, string #File random gen name
-from models import Post, db
+from models import Post,db
 from flask_login import login_required, current_user
-
+import random, string
 app_ads = Blueprint('ads', __name__, template_folder='templates', static_folder='static') # Создание принта
 
-from app import UPLOAD_FOLDER, allowed_file, get_random_string
+UPLOAD_FOLDER = 'C:/Users/Ksutelash/Desktop/pyProject/static/loaded' # Папка хранения изображений
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'} # Допустимые форматы изображений
+
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+def get_random_string(filename):     
+    letters = string.ascii_lowercase
+    ext = filename.rsplit('.',1)[1]
+    filename = ''.join(random.choice(letters) for i in range(10)) # Генит 10 рандомных букофк в название
+    filename = filename + '.' + ext 
+    return filename
 
 @app_ads.route('/', methods=["GET"])
 def index():      

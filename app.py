@@ -12,6 +12,7 @@ import random, string #File random gen name
 
 UPLOAD_FOLDER = 'C:/Users/Ksutelash/Desktop/pyProject/static/loaded' # Папка хранения изображений
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'} # Допустимые форматы изображений
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///mydb.db"
