@@ -58,9 +58,9 @@ class Message(db.Model):
 db.create_all()
 
 if not User.query.filter(User.login == 'Ksut').first():
-        u = User(login = 'Ksut', password = generate_password_hash("123"))
+        u = User(login = 'Ksut', password = generate_password_hash("123"), univ_name = "МИРЭА, корпус 1")
         db.session.add(u)        
-        admin_role = Role(name='Администратор') 
+        admin_role = Role(name='Администратор')         
         admin_role.users.append(u)
         db.session.commit()
 

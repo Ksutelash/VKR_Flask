@@ -2,23 +2,25 @@
 <html>
    
 
-<title>{%block title%}Sample Page{% endblock %}</title>
+<title>
+    {%block title%}
+    Sample Page
+    {% endblock %}
+</title>
 
 <head>
-
+    <meta charset="utf-8">
+    
+     
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">       
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts/ionicons.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/message_inbox.css')}}">
+    
    {%block head%}    
-   <meta charset="utf-8">
-
-
-   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
    
-   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">       
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">    
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
-   <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
-   <link rel="stylesheet" href="{{ url_for('static', filename='css/tag_colors.css')}}">
-   <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts/ionicons.min.css')}}">
 
    {% endblock %}
 

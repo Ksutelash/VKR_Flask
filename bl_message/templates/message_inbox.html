@@ -1,7 +1,8 @@
-{% extends 'sample.html' %}
+{% extends 'message_sample.html' %}
 
-{%block title%}Мои диалоги{% endblock %}
-{%block header%}<link rel="stylesheet" href="{{ url_for('static', filename='css/message_inbox.css')}}"> {%endblock%}
+{%block title%}
+  Мои диалоги
+{% endblock %}
 
 
 {% with messages = get_flashed_messages() %}
@@ -14,35 +15,230 @@
 {% endif %}
 {% endwith %}
 
+   
+
 
 
 
 <body>
 {%block body%}
 
-<h2>Мои диалоги</h2>
-    {%for x in get_info%}
-    <div class="projects-horizontal">
-      <div class="container">
-          <div class="intro">
-              
-          </div>
-          
-          <div class="row projects">
-              <div class="col-sm-6 item">
-                  <div class="row">
-                      <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="/static/loaded/{{current_user.user_avatar}}"></a></div>
-                      <div class="col">
-                          <h3 class="name">{{ x.user_from }}</h3>
-                          <h5 class="name">{{ x.mes_theme }}</h5>
-                          <p class="description">{{ x.mes_text }}</p>
-                      </div>
+
+<div class="container">
+  <div class="media messages-container media-clearfix-xs-min media-grid">
+    <div class="media-left">
+      <div class="messages-list">
+        <div class="panel panel-default" tabindex="1" style="overflow: hidden; outline: none;">
+          <ul class="list-group">
+            <li class="list-group-item active">
+              <a href="#">
+                <div class="media">
+                  <div class="media-left">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="50" alt="" class="media-object">
                   </div>
-              </div>
-          </div>
+                  <div class="media-body">
+                    <span class="date">Today</span>
+                    <span class="user">Mary D.</span>
+                    <div class="message">Are we ok to meet...</div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="#">
+                <div class="media">
+                  <div class="media-left">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" height="50" alt="" class="media-object">
+                  </div>
+                  <div class="media-body">
+                    <span class="date">Sat</span>
+                    <span class="user">Adrian T.</span>
+                    <div class="message">Looking forward to...</div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="#">
+                <div class="media">
+                  <div class="media-left">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar3.png" width="50" alt="" class="media-object">
+                  </div>
+                  <div class="media-body">
+                    <span class="date">5 days</span>
+                    <span class="user">Michelle A.</span>
+                    <div class="message">Nice design.</div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="#">
+                <div class="media">
+                  <div class="media-left">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar4.png" height="50" alt="" class="media-object">
+                  </div>
+                  <div class="media-body">
+                    <span class="date">Sat</span>
+                    <span class="user">Sue T.</span>
+                    <div class="message">Looking forward to...</div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="#">
+                <div class="media">
+                  <div class="media-left">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar5.png" height="50" alt="" class="media-object">
+                  </div>
+                  <div class="media-body">
+                    <span class="date">Sat</span>
+                    <span class="user">Adrian T.</span>
+                    <div class="message">Looking forward to...</div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="#">
+                <div class="media">
+                  <div class="media-left">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar6.png" height="50" alt="" class="media-object">
+                  </div>
+                  <div class="media-body">
+                    <span class="date">Sat</span>
+                    <span class="user">Adrian T.</span>
+                    <div class="message">Looking forward to...</div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="#">
+                <div class="media">
+                  <div class="media-left">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" height="50" alt="" class="media-object">
+                  </div>
+                  <div class="media-body">
+                    <span class="date">Sat</span>
+                    <span class="user">Adrian T.</span>
+                    <div class="message">Looking forward to...</div>
+                  </div>
+                </div>
+              </a>
+            </li>
+            <li class="list-group-item">
+              <a href="#">
+                <div class="media">
+                  <div class="media-left">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" height="50" alt="" class="media-object">
+                  </div>
+                  <div class="media-body">
+                    <span class="date">Sat</span>
+                    <span class="user">Adrian T.</span>
+                    <div class="message">Looking forward to...</div>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
+    </div>
+    <div class="media-body">
+      <div class="panel panel-default share">
+        <div class="input-group">
+          <div class="input-group-btn">
+            <a class="btn btn-primary" href="#">
+              <i class="fa fa-envelope"></i> Send
+            </a>
+          </div>
+          <!-- /btn-group -->
+          <input type="text" class="form-control share-text" placeholder="Write message...">
+        </div>
+        <!-- /input-group -->
+      </div>
+      <div class="media">
+        <div class="media-left">
+          <a href="#">
+            <img src="https://bootdey.com/img/Content/avatar/avatar3.png" width="60" alt="woman" class="media-object">
+          </a>
+        </div>
+        <div class="media-body message">
+          <div class="panel panel-default">
+            <div class="panel-heading panel-heading-white">
+              <div class="pull-right">
+                <small class="text-muted">2 min ago</small>
+              </div>
+              <a href="#">Mary D.</a>
+            </div>
+            <div class="panel-body">
+              Hi Bill,
+              <br> Is it ok if we schedule the meeting tomorrow?
+  
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="media">
+        <div class="media-body message">
+          <div class="panel panel-default">
+            <div class="panel-heading panel-heading-white">
+              <div class="pull-right">
+                <small class="text-muted">10 min ago</small>
+              </div>
+              <a href="#">Me</a>
+            </div>
+            <div class="panel-body">
+              Are we still on for Today?
+            </div>
+          </div>
+        </div>
+        <div class="media-right">
+          <img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="60" alt="" class="media-object">
+        </div>
+      </div>
+      <div class="media">
+        <div class="media-left">
+          <img src="https://bootdey.com/img/Content/avatar/avatar3.png" width="60" alt="" class="media-object">
+        </div>
+        <div class="media-body message">
+          <div class="panel panel-default">
+            <div class="panel-heading panel-heading-white">
+              <div class="pull-right">
+                <small class="text-muted">1 day ago</small>
+              </div>
+              <a href="#">Mary D.</a>
+            </div>
+            <div class="panel-body">
+              Cool. It's settled. Tomorrow will discuss the project.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="media">
+        <div class="media-body message">
+          <div class="panel panel-default">
+            <div class="panel-heading panel-heading-white">
+              <div class="pull-right">
+                <small class="text-muted">3 days ago</small>
+              </div>
+              <a href="#">Me</a>
+            </div>
+            <div class="panel-body">
+              I suggest a meeting on Tuesday. What do you think?
+            </div>
+          </div>
+        </div>
+        <div class="media-right">
+          <img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="60" alt="" class="media-object">
+        </div>
+      </div>
+    </div>
   </div>
-  {%endfor%} 
+  
+  </div>
                 
               
           

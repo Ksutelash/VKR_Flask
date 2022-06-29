@@ -1,4 +1,4 @@
-{% extends 'sample.html' %}
+{% extends 'profile_sample.html' %}
 
 {% with messages = get_flashed_messages() %}
 {% if messages %}
@@ -26,7 +26,7 @@
                         {%endfor%}
   
                         <div class="form-group">
-                            <h5>Мой аватар: <img class="card-img-top scale-on-hover" alt="Аватарка не прогрузилась :С"   src="/static/loaded/{{current_user.user_avatar}}"></h5>                            
+                            <h5>Мой аватар: <img class="card-img-top scale-on-hover" width="400px" height="600px" alt="Аватарка не прогрузилась :С"   src="/static/loaded/{{current_user.user_avatar}}"></h5>                            
                             <h5>Мой ник: {{current_user.login}}</h5>
                             <h5>Мой id: {{current_user.id}}</h5>
                             <h5>Мой выбранный вуз: {{current_user.univ_name}}</h5>

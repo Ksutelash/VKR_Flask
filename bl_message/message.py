@@ -3,7 +3,7 @@ from werkzeug.utils import redirect
 from flask_login import current_user
 from models import Post, Message, db
 
-app_message = Blueprint('message', __name__, template_folder='templates', static_folder='static') # имя принта, имя модуля(где будут искаться каталоги и под, пути)
+app_message = Blueprint('message', __name__, template_folder='templates', static_folder='static/message') # имя принта, имя модуля(где будут искаться каталоги и под, пути)
 
 @app_message.route("/inbox", methods=['GET', 'POST'])
 def message_inbox():
